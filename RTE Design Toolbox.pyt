@@ -9,7 +9,7 @@ class Toolbox(object):
         self.alias = "RTE Design Toolbox"
 
         # List of tool classes associated with this toolbox
-        self.tools = [InstlCode]
+        self.tools = [InstlCode, AddInstlCodeField]
 
 
 class InstlCode(object):
@@ -22,7 +22,6 @@ class InstlCode(object):
     def getParameterInfo(self):
         """Define parameter definitions"""
         param0 = arcpy.Parameter("InputFeatureClass","Municipality Dataset","Input","DEFeatureClass","Required")
-        param0.summary = "some description here"
         param1 = arcpy.Parameter("field","Luminaire Type Field","Input", "Field","Required")
         param1.filter.list = ['Text']
         param1.parameterDependencies = [param0.name]  
@@ -91,7 +90,45 @@ class InstlCode(object):
                     row[2] = luminaireType + str(instlCodeMap[luminaireType].index(ledDesigned) + 1)
                     cursor.updateRow(row)
 
-        print(instlCodeMap)
+        arcpy.AddMessage("Unique Values found as follows... ")
+        arcpy.AddMessage(instlCodeMap)
+        return
+
+class AddInstlCodeField(object):
+    def __init__(self):
+        """Define the tool (tool name is the name of the class)."""
+        self.label = "Add Install Code Field"
+        self.description = "Calculates Install Codes based on the Luminaire Type and each unique value found in the LED Designed field."
+        self.canRunInBackground = False
+
+    def getParameterInfo(self):
+        """Define parameter definitions"""
+        param0 = arcpy.Parameter("InputFeatureClass","Municipality Dataset","Input","DEFeatureClass","Required")
+        params = [param0]
+        return params
+
+    def isLicensed(self):
+        """Set whether tool is licensed to execute."""
+        return True
+
+    def updateParameters(self, parameters):
+        """Modify the values and properties of parameters before internal
+        validation is performed.  This method is called whenever a parameter
+        has been changed."""
+        return
+
+    def updateMessages(self, parameters):
+        """Modify the messages created by internal validation for each tool
+        parameter.  This method is called after internal validation."""
+        return
+
+    def execute(self, parameters, messages):
+        """The source code of the tool."""
+        import re, arcpy
+        
+        inputFeatureClass = parameters[0].valueAsText
+        arcpy.AddField_management(inputFeatureClass, "InstlCode", "TEXT", "", "", "10", "Install Code", "NULLABLE", "NON_REQUIRED","")
+        arcpy.AddMessage("Install Code Field Added. Yay!")
         
         return
         

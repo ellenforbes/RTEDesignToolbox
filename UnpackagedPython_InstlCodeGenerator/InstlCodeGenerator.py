@@ -1,4 +1,4 @@
-import re
+import re, arcpy
 
 InputFeatureClass = "Cityname_SP_YYYYMMDD"
 field = "LuminaireType"
