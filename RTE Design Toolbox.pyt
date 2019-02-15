@@ -15,13 +15,13 @@ class Toolbox(object):
 class InstlCode(object):
     def __init__(self):
         """Define the tool (tool name is the name of the class)."""
-        self.label = "Install Code Generator"
+        self.label = "1. Install Code Generator"
         self.description = "Calculates Install Codes based on the Luminaire Type and each unique value found in the LED Designed field."
         self.canRunInBackground = False
 
     def getParameterInfo(self):
         """Define parameter definitions"""
-        param0 = arcpy.Parameter("InputFeatureClass","Municipality Dataset","Input","DEFeatureClass","Required")
+        param0 = arcpy.Parameter("InputFeatureClass","Municipality Dataset","Input","GPFeatureLayer","Required")
         param1 = arcpy.Parameter("field","Luminaire Type Field","Input", "Field","Required")
         param1.filter.list = ['Text']
         param1.parameterDependencies = [param0.name]  
@@ -97,13 +97,13 @@ class InstlCode(object):
 class AddInstlCodeField(object):
     def __init__(self):
         """Define the tool (tool name is the name of the class)."""
-        self.label = "Add Install Code Field"
+        self.label = "2. (Optional) Add Install Code Field"
         self.description = "Calculates Install Codes based on the Luminaire Type and each unique value found in the LED Designed field."
         self.canRunInBackground = False
 
     def getParameterInfo(self):
         """Define parameter definitions"""
-        param0 = arcpy.Parameter("InputFeatureClass","Municipality Dataset","Input","DEFeatureClass","Required")
+        param0 = arcpy.Parameter("InputFeatureClass","Municipality Dataset","Input","GPFeatureLayer","Required")
         params = [param0]
         return params
 
