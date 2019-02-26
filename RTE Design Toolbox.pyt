@@ -124,7 +124,6 @@ class AddInstlCodeField(object):
 
     def execute(self, parameters, messages):
         """The source code of the tool."""
-        import re, arcpy
         
         inputFeatureClass = parameters[0].valueAsText
         arcpy.AddField_management(inputFeatureClass, "InstlCode", "TEXT", "", "", "10", "Install Code", "NULLABLE", "NON_REQUIRED","")
