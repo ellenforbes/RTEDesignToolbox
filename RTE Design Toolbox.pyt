@@ -94,6 +94,7 @@ class InstlCode(object):
         arcpy.AddMessage(instlCodeMap)
         return
 
+
 class AddInstlCodeField(object):
     def __init__(self):
         """Define the tool (tool name is the name of the class)."""
